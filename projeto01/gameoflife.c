@@ -15,12 +15,33 @@ typedef struct {
 
 void* f_thread(void *void_args) {
     f_thread_args *args = (f_thread_args*)void_args;
-    printf("%d %d\n", args.i, args.j);
+    // printf("%d %d\n", args.i, args.j);
     free(&args);
     return NULL; 
 }
 
+char **AlocaM(int m, int n){
+  char **M;
+  int i;
+ 
+  M = (int **)malloc(sizeof(int *)*m);
+  if(M == NULL){
+    printf("Memoria insuficiente.\n");
+    exit(1);
+  }
+  for(i = 0; i < m; i++){
+    M[i] = (int *)malloc(sizeof(int)*n);
+    if(M[i] == NULL){
+      printf("Memoria insuficiente.\n");
+      exit(1);
+    }
+  }
+  return M;
+} 
+
 void print_matriz(char **matriz, int M, int N){
+    printf("entrou\n");
+    
     for(int i = 0 ; i < M ; i++){
         for(int j = 0 ; j < N ; j++){
             printf("%c", matriz[i][j]);
@@ -31,18 +52,26 @@ void print_matriz(char **matriz, int M, int N){
 
 
 int main() {
+    printf("lalallalalal\n");
     int M, N;
     scanf("%d %d\n", &M, &N);
-    char **matriz = malloc(M * sizeof(char*));
-    for(int i = 0 ; i < M ; i++){
-        matriz[i] = malloc(N * sizeof(char));
-    }
+    char **matriz = AlocaM(M,N);3
+    
+
+    // char **matriz = malloc(M * sizeof(char*));
+    // for(int i = 0 ; i < M ; i++){
+    //     matriz[i] = malloc(N * sizeof(char));
+    // }
+    // printf("para\n");
 
     for(int i = 0 ; i < M ; i++){
         for(int j = 0 ; j < N ; j++){
             scanf("%c ", &matriz[i][j]);
+            printf("%s/%d/%d\n ",&matriz[i][j],i,j);
+
         }
     }
+    printf("entrou\n");
 
     print_matriz(matriz, M, N);
 
