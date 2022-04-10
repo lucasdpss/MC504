@@ -1,6 +1,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define QUAD_WDT 5
 #define QUAD_HGT 5
@@ -21,7 +22,6 @@ int get_vizinhos_vivos(char **matriz, int M, int N, int i, int j){
         for(int y = j - 1 ; y <= j+1 ; y++){
             if(x < 0 || x >= M || y < 0 || y >= N) continue; // Celula fora da matriz
             if(x == i && y == j) continue; // Propria celula
-            printf("Lendo [%d][%d] como %s\n", x, y, (matriz[x][y] == '#' ? "vivo" : "morto"));
             count += (matriz[x][y] == '#' ? 1 : 0);
         }
     }
@@ -34,7 +34,15 @@ void* f_thread(void *void_args) {
     for(int x = args->i * QUAD_HGT ; x < (args->i + 1) * QUAD_HGT ; x++){
         for(int y = args->j * QUAD_WDT ; y < (args->j + 1) * QUAD_WDT ; y++){
             if(x < 0 || x >= args->M || y < 0 || y >= args->N) continue; // Celula fora da matriz
-            // Processa celula
+            int vizinhos = get_vizinhos_vivos(args->matriz, args->M, args->N, x, y);
+            if(args->matriz[x][y] == '#'){
+                if(vizinhos == 2 || vizinhos == 3) args->prox_matriz[x][y] = '#';
+                else args->prox_matriz[x][y] = '.';
+            }
+            else{
+                if(vizinhos == 3) args->prox_matriz[x][y] = '#';
+                else args->prox_matriz[x][y] = '.';
+            }
         }
     }
 
@@ -75,6 +83,7 @@ void print_matriz(char **matriz, int M, int N){
         }
         printf("\n");
     }
+    printf("\n");
 }
 
 
@@ -97,24 +106,33 @@ int main() {
     const int thr_num_wdt = N / QUAD_WDT + ((N % QUAD_WDT == 0) ? 0 : 1); // teto(N / QUAD_WDT)
     pthread_t thr[thr_num_hgt][thr_num_wdt];
 
-    for(int i = 0 ; i < thr_num_hgt ; i++){
-        for(int j = 0 ; j < thr_num_wdt ; j++){
-            f_thread_args* args = malloc(sizeof(f_thread_args));
-            args->matriz = matriz;
-            args->prox_matriz = malloc_matriz(M, N);
-            args->M = M;
-            args->N = N;
-            args->i = i;
-            args->j = j;
-            pthread_create(&thr[i][j], NULL, f_thread, (void*) args);
-        }
-    }
+    while(1){
+        char **prox_matriz = malloc_matriz(M, N);
 
-    
-    for(int i = 0 ; i < thr_num_hgt ; i++){
-        for(int j = 0 ; j < thr_num_wdt ; j++){
-            pthread_join(thr[i][j], NULL);
+        for(int i = 0 ; i < thr_num_hgt ; i++){
+            for(int j = 0 ; j < thr_num_wdt ; j++){
+                f_thread_args* args = malloc(sizeof(f_thread_args));
+                args->matriz = matriz;
+                args->prox_matriz = prox_matriz;
+                args->M = M;
+                args->N = N;
+                args->i = i;
+                args->j = j;
+                pthread_create(&thr[i][j], NULL, f_thread, (void*) args);
+            }
         }
+
+        for(int i = 0 ; i < thr_num_hgt ; i++){
+            for(int j = 0 ; j < thr_num_wdt ; j++){
+                pthread_join(thr[i][j], NULL);
+            }
+        }
+
+        print_matriz(matriz, M, N);
+        free_matriz(matriz, M);
+        matriz = prox_matriz;
+
+        sleep(3);
     }
 
     free_matriz(matriz, M);
