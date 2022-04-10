@@ -98,10 +98,6 @@ int main() {
         }
     }
 
-    printf("%d\n", get_vizinhos_vivos(matriz, M, N, 2, 1));
-
-    print_matriz(matriz, M, N);
-
     const int thr_num_hgt = M / QUAD_HGT + ((M % QUAD_HGT == 0) ? 0 : 1); // teto(M / QUAD_HGT)
     const int thr_num_wdt = N / QUAD_WDT + ((N % QUAD_WDT == 0) ? 0 : 1); // teto(N / QUAD_WDT)
     pthread_t thr[thr_num_hgt][thr_num_wdt];
@@ -132,7 +128,7 @@ int main() {
         free_matriz(matriz, M);
         matriz = prox_matriz;
 
-        sleep(3);
+        sleep(1);
     }
 
     free_matriz(matriz, M);
