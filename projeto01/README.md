@@ -66,7 +66,7 @@ A partir disso, estabeleceu-se que a entrada do projeto é dada aleatoriamente n
 
 ![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.001.png)
 
-**Figura 1. Matriz aleatória**
+***Figura 1. Matriz aleatória***
 
 Dessa maneira a matriz pode ser lida e processada em ciclos pelo algoritmo projetado pelo grupo.**
 
@@ -78,13 +78,13 @@ A estratégia proposta pelo grupo fora a de, diante da matriz apresentada, criar
 
 ![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.002.png)
 
-**Figura 2. Primeiro quadrante**
+***Figura 2. Primeiro quadrante***
 
 Seguindo essa lógica, para o caso, dos extremos mais à direita e inferior da matriz teria-se quadrantes com lado menor do que o limite como por exemplo o último quadrante que será 4X4:
 
 ![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.003.png)
 
-**Figura 3. Último quadrante**
+***Figura 3. Último quadrante***
 
 A partir disso, em ambos os casos seus processamentos são dados por uma leitura da vizinhança de todas as células do quadrante ignorando os limites matriciais e a própria célula e em seguida sobrescrevendo o novo estado da célula em uma nova matriz.
 
@@ -96,29 +96,29 @@ A partir disso, em ambos os casos seus processamentos são dados por uma leitura
 
 ![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.004.png)-
 
-**Figura 4. Definições e chamada de bibliotecas**
+***Figura 4. Definições e chamada de bibliotecas***
 
 `	`Com isso, deve-se analisar a função main a qual começa alocando e escaneando a matriz conforme a entrada dada na introdução e, em seguida, faz-se a divisão em quadrantes para a criação das threads matricialmente.
 
 `	`![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.005.png)
 
-**Figura 5. Main (parte 1)**
+***Figura 5. Main (parte 1)***
 
 **	Em seguida, inicia-se o fluxo principal do código, onde, em uma repetição intermitente se cria a nova matriz a ser exibida no próximo ciclo e, percorre-se a matriz de threads e passando como argumentos para “f\_thread” a dimensão da matriz, localização de início da thread na matriz e a matriz lida. Sendo tudo isso auxiliado por uma estrutura “f\_thread\_args” para maior clareza no código.
 
 ![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.006.png)
 
-**Figura 6. Main (parte 2)**
+***Figura 6. Main (parte 2)***
 
 ![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.007.png)
 
-**Figura 7. Main (parte 3)**
+***Figura 7. Main (parte 3)***
 
 Feita essas execuções da função, a matriz já estará processada ( função melhor explicada no tópico seguinte) e basta apenas lidar com a impressão da matriz e sua desalocação e com a anulação das matriz de threads para um novo ciclo a ser executado em seguida.
 
 ![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.008.png)
 
-**Figura 8. Main (parte 4)**
+***Figura 8. Main (parte 4)***
 
 **3.2 Funções**
 
@@ -128,18 +128,18 @@ Feita essas execuções da função, a matriz já estará processada ( função 
 
 `	`**![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.009.png)**
 
-**Figura 9. Alocação e desalocação**
-**
+***Figura 9. Alocação e desalocação***
+
 `	`Por fim, basta-se entender as 2 funções na qual todo o código se sustenta, pois elas fazem o processamento das threads:
 
 - **get\_vizinhos\_vivos:** Analisa toda a vizinhança da célula em questão e verifica se sua condição no próximo ciclo será de viva (“#”) ou morta (“.”).
 
 ![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.010.png)
 
-**Figura 10. get\_vizinhos\_vivos**
+***Figura 10. get\_vizinhos\_vivos***
 
 - **f\_thread:** Aqui é onde se localiza a parte central do código, onde basicamente, com os argumentos recebidos pela estrutura percorre-se o quadrante (delimitado pelos argumentos) e analisa como o auxílio da função **get\_vizinhos\_vivos** o próximo estado da célula.
 
 ![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.011.png)
 
-**Figura 11. get\_vizinhos\_vivos**
+***Figura 11. get\_vizinhos\_vivos***
