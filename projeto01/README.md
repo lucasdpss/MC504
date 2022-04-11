@@ -66,7 +66,7 @@ A função main começa alocando e escaneando a matriz conforme a entrada dada n
 
 ***Figura 5. Main (parte 1)***
 
-	Em seguida, inicia-se o fluxo principal do código, onde, em um loop infinito: Se cria a nova matriz a ser exibida no próximo ciclo, percorre-se a matriz de threads passando como argumentos para “f_thread” a dimensão da matriz, localização de início da thread na matriz e a matriz lida. Esses argumentos foram  colocados na estrutura “f_thread_args”,  para maior clareza no código.
+Em seguida, inicia-se o fluxo principal do código, onde, em um loop infinito: Se cria a nova matriz a ser exibida no próximo ciclo, percorre-se a matriz de threads passando como argumentos para “f_thread” a dimensão da matriz, localização de início da thread na matriz e a matriz lida. Esses argumentos foram  colocados na estrutura “f_thread_args”,  para maior clareza no código.
 
 ![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.006.png)
 
