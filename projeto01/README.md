@@ -91,7 +91,7 @@ A partir disso, em ambos os casos seus processamentos são dados por uma leitura
 **3. Código e Funções**
 
 `	`**3.1 Main**
-**
+
 `	`Dado o algoritmo apresentado, basta apenas traduzi-lo para um código em C que utilize a pthread. Ou seja, para as definições iniciais, teremos a inclusão das bibliotecas e da definição das constantes de limitação da matriz:
 
 ![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.004.png)-
@@ -121,9 +121,9 @@ Feita essas execuções da função, a matriz já estará processada ( função 
 **Figura 8. Main (parte 4)**
 
 **3.2 Funções**
-**
+
 `	`Para criação e tratamento da matriz de entrada, criou-se as funções de alocação e desalocação de matriz, as quais basicamente alocam memória dinamicamente  com o “malloc” e liberam-na com o “free”.
-**
+
 
 
 `	`**![](assets/Aspose.Words.2f9fab5f-1863-4017-b782-647aca1ec5f8.009.png)**
