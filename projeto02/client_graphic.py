@@ -5,9 +5,9 @@ from PIL import ImageTk,Image
 serverHost = 'localhost'
 serverPort = 8080
 
-people_queue = ['M','M','F','F','F','F','M','F','M','F']
-bathroom = ['F', 'F', '']
-lightswitch = 'F' #Male 'M' or Female 'F'
+people_queue = [] #lista de tuplas (id, char)
+bathroom = ['', '', ''] #lista de tuplas de quem esta no banheiro
+light = 'F' #Male 'M' ou Female 'F'
 
 WIDTH = 900
 HEIGHT = 540
@@ -52,29 +52,70 @@ def draw_background():
 def draw_people():
     (i,j) = (13,6)
     for person in people_queue:
-        if(person == 'M'):
+        if(person[1] == 'M'):
             canvas.create_image(i*45 - 14, j*45 - 19, anchor=tk.NW, image=img_male)
+            canvas.create_text(i*45, j*45, anchor=tk.W, font="Purisa",text=str(person[0]), fill='white')
         else:
             canvas.create_image(i*45 - 14, j*45 - 19, anchor=tk.NW, image=img_female)
+            canvas.create_text(i*45, j*45, anchor=tk.W, font="Purisa",text=str(person[0]), fill='white')
         i -= 1
     
     (i,j) = (17,4)
     for k in range(len(bathroom)):
-        if bathroom[k] == 'M':
-            canvas.create_image(i*45 - 14 , (j+k*2)*45 - 19, anchor=tk.NW, image=img_male)
-        elif bathroom[k] == 'F':
-            canvas.create_image(i*45 - 14, (j+k*2)*45 - 19, anchor=tk.NW, image=img_female)
-
-        
+        if bathroom[k] != '':
+            if bathroom[k][1] == 'M':
+                canvas.create_image(i*45 - 14 , (j+k*2)*45 - 19, anchor=tk.NW, image=img_male)
+                canvas.create_text(i*45  + 1 , (j+k*2)*45 + 1, anchor=tk.W, font="Purisa",text=str(bathroom[k][0]), fill='white')
+            else:
+                canvas.create_image(i*45 - 14, (j+k*2)*45 - 19, anchor=tk.NW, image=img_female)
+                canvas.create_text(i*45 + 1 , (j+k*2)*45 + 1, anchor=tk.W, font="Purisa",text=str(bathroom[k][0]), fill='white')
 
 def draw_lightswitch():
     (i,j) = (14,5)
-    if(lightswitch == 'F'):
+    if(light == 'F'):
         canvas.create_image(i*45, j*45, anchor=tk.NW, image=img_lightswitch_female)
         canvas.create_image(i*45, (j+2)*45, anchor=tk.NW, image=img_lightswitch_female)
     else:
         canvas.create_image(i*45, j*45, anchor=tk.NW, image=img_lightswitch_male)
         canvas.create_image(i*45, (j+2)*45, anchor=tk.NW, image=img_lightswitch_male)
+
+def msg_interpreter(str_received):
+    global light
+    tokens = str_received.split(" ")
+    print(tokens)
+    if(tokens[2] == "entrou" and tokens[4] == "fila."):
+        if(tokens[0] == "Mulher"):  
+            people_queue.append((int(tokens[1]),'F')) #coloca na lista um identificador e o genero
+        else:
+            people_queue.append((int(tokens[1]),'M')) #coloca na lista um identificador e o genero
+    elif(tokens[2] == "entrou" and tokens[4] == "banheiro."):
+        if(tokens[0] == "Mulher"):
+            for i in range(len(bathroom)):
+                if bathroom[i] == '':
+                    bathroom[i] = (int(tokens[1]),'F')
+                    people_queue.remove((int(tokens[1]),'F')) 
+                    light = 'F'
+                    break
+        else:
+            for i in range(len(bathroom)):
+                if bathroom[i] == '':
+                    bathroom[i] = (int(tokens[1]),'M')
+                    people_queue.remove((int(tokens[1]),'M'))
+                    light = 'M'
+                    break
+    elif(tokens[2] == "saiu" and tokens[4] == "banheiro."):
+        if(tokens[0] == "Mulher"):
+            for i in range(len(bathroom)):
+                if bathroom[i] == (int(tokens[1]),'F'):
+                    bathroom[i] = ''
+                    break
+        else:
+            for i in range(len(bathroom)):
+                if bathroom[i] == (int(tokens[1]),'M'):
+                    bathroom[i] = ''
+                    break
+    
+    print(people_queue)
 
 
 try:
@@ -89,10 +130,12 @@ try:
             items = 'Erro'
 
         if items == 'Erro' or items == b'':
-            break
+            pass
         
         while(len(queue) > 0):
-            print(queue.pop())
+            msg_interpreter(str(queue.pop(0)))
+            #print(str(queue.pop(0)))
+
             canvas.delete("all") #limpa a tela para preparar para a proxima iteracao
             draw_background()
             draw_people()
