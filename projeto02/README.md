@@ -30,7 +30,7 @@ Além disso, estabeleceu-se que deve-se ao fazer a sincronização da utilizaç�
 
 A partir disso, supõe-se uma entrada em um randômica e limitada a 50 pessoas que utilizam da cabine sincronizadamente levando em consideração seus diferentes tempos.
 
-2. **Algoritmo**
+ **2.Algoritmo**
 
 A estratégia proposta pelo grupo foi adotar o algoritmo pelo qual se mantém o máximo de pessoas dentro nas cabines e caso não seja possível a próxima pessoa da fila entrar ela entra em um estado de espera. Nesse sentido, cabe-se determinar quais são os casos de espera:
 
@@ -40,7 +40,7 @@ A estratégia proposta pelo grupo foi adotar o algoritmo pelo qual se mantém o 
 
 Dadas essas condições de espera, deve-se ressaltar que a aplicação da espera é feita ante a prioridade criada pela fila, ou seja, se a pessoa que está na frente na fila entra em espera ela deverá ter prioridade caso o banheiro seja liberado, dessa maneira evitando eventuais starvations ocorridos ocasionados por eventuais “cortes de fila” causados por pessoas do mesmo sexo já podendo entrar no banheiro enquanto a pessoa da frente do sexo oposto está em espera.
 
-3. **Código e Funções**
+**3. Código e Funções**
 
 O código em questão se estrutura em 2 partes, uma animação feita em python (client\_graphic.py) e a estruturação do algoritmo em si feito em C (unisex.c), ambos conectados por via Websocket como pode-se observar pelo início do trecho da função main do código em C.
 
@@ -110,11 +110,11 @@ Ademais, esta é a função mais importante de todo o código, pois esta decodif
 
 Por fim, como centro da execução faz-se esse “try catch” com “while” contínuo para sempre manter a janela em execução e, dentro deles, há o trecho onde se recebem e tratam os dados do websocket os quais são inseridos em uma fila de execução que é percorrida em execuções onde são chamadas as funções de decodificação e atualização descritos acima.
 
-2. **Lógica do Banheiro Unissex**
+**2. Lógica do Banheiro Unissex**
 
 Podemos dividir a lógica de funcionamento do banheiro unissex em duas partes. Primeiro, o processo da pessoa na fila, até ser o primeiro da mesma. Depois, o processo de conseguir esperar por uma cabine vaga, até sair do banheiro.
 
-1. **Fila do banheiro:**
+ **1.Fila do banheiro:**
 
 Como visto na função main, cada pessoa é representada por uma thread, essas threads querem usar um recurso compartilhado, as três cabines do banheiro. Homens são m\_thread e mulheres são f\_thread.
 
@@ -132,7 +132,7 @@ O turnstile é o que impede o starvation, isso porque ele é um recurso utilizad
 
 **Figura 11. f\_thread parte 1**
 
-2. **Entrada e saída do banheiro:**
+**2. Entrada e saída do banheiro:**
 
 Quando chega sua vez de usar o banheiro, a thread deve solicitar uma cabine (linha 46), ao conseguir esse recurso, envia para a interface gráfica que conseguiu entrar. Fica por um tempo aleatório utilizando o banheiro, e então libera o recurso da cabine (linha 56).
 
