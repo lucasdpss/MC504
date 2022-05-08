@@ -52,7 +52,7 @@ void f_thread(void * v){
     sem_post(&socket_mutex);
 
 
-    sleep((random() % 4) + 2); //tempo de uso do banheiro
+    sleep((random() % 4) + 3); //tempo de uso do banheiro
     sem_post(&f_count);  //sai do banheiro, liberando mais um recurso de quantidade 
 
     sem_wait(&socket_mutex);
@@ -97,7 +97,7 @@ void m_thread(void* v){
     sem_post(&socket_mutex);
 
 
-    sleep((random() % 4) + 2); //tempo de uso do banheiro
+    sleep((random() % 4) + 3); //tempo de uso do banheiro
     sem_post(&m_count);
 
     sem_wait(&socket_mutex);
