@@ -68,7 +68,7 @@ Como pode-se observar, chamam-se os semáforos utilizados nas threads e cria-se 
 
 **Figura 5. Chamada de bibliotecas e definição de variáveis**
 
-1. **Janela gráfica em python**
+ **3.1. Janela gráfica em python**
 
 Objetivamente, a parte gŕafica em “client\_graphic.py” se sustenta no mapeamento de imagens em pixel art sobre uma janela gráfica criada pela biblioteca tkinker a qual se atualizará dependendo de cada uma das informações recebidas pela conexão websocket criada.
 
@@ -110,11 +110,11 @@ Ademais, esta é a função mais importante de todo o código, pois esta decodif
 
 Por fim, como centro da execução faz-se esse “try catch” com “while” contínuo para sempre manter a janela em execução e, dentro deles, há o trecho onde se recebem e tratam os dados do websocket os quais são inseridos em uma fila de execução que é percorrida em execuções onde são chamadas as funções de decodificação e atualização descritos acima.
 
-**2. Lógica do Banheiro Unissex**
+**3.2. Lógica do Banheiro Unissex**
 
 Podemos dividir a lógica de funcionamento do banheiro unissex em duas partes. Primeiro, o processo da pessoa na fila, até ser o primeiro da mesma. Depois, o processo de conseguir esperar por uma cabine vaga, até sair do banheiro.
 
- **1.Fila do banheiro:**
+ **3.2.1.Fila do banheiro:**
 
 Como visto na função main, cada pessoa é representada por uma thread, essas threads querem usar um recurso compartilhado, as três cabines do banheiro. Homens são m\_thread e mulheres são f\_thread.
 
@@ -132,7 +132,7 @@ O turnstile é o que impede o starvation, isso porque ele é um recurso utilizad
 
 **Figura 11. f\_thread parte 1**
 
-**2. Entrada e saída do banheiro:**
+**3.2.2. Entrada e saída do banheiro:**
 
 Quando chega sua vez de usar o banheiro, a thread deve solicitar uma cabine (linha 46), ao conseguir esse recurso, envia para a interface gráfica que conseguiu entrar. Fica por um tempo aleatório utilizando o banheiro, e então libera o recurso da cabine (linha 56).
 
