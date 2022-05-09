@@ -12,6 +12,9 @@ Lindon Jonathan Sanley dos S. P. Monroe    RA 220407 Lucas de Paula Soares    RA
 
 Campinas 2022
 
+## Vídeo de apresentação
+[Vídeo de apresentação do projeto no Youtube](https://www.youtube.com/watch?v=GdJkfiNEkYo)
+
 **1.Introdução**
 
 O projeto em questão trabalha com a utilização da programação em multithread e da técnica de semáforos a fim de dar uma solução para o problema do banheiro unissex de forma a atingir uma sincronização harmoniosa na utilização das cabines e enfileiramento de pessoas.
