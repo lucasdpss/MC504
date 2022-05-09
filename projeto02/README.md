@@ -1,6 +1,6 @@
-﻿#Projeto 2 - Animação Multithread com Semáforos
+﻿# Projeto 2 - Animação Multithread com Semáforos
 
-###Tema: Banheiro unissex
+### Tema: Banheiro unissex
 
 ## Equipe
 * Antonio Gabriel da Silva Fernandes	    RA 231551
