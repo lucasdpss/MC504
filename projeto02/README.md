@@ -38,7 +38,7 @@ A estratégia proposta pelo grupo foi criar um algoritmo no qual se mantém o m�
 
 A aplicação da espera é feita de modo que a primeira pessoa da fila entra primeiro caso o banheiro seja liberado. Evitamos eventuais starvations ocorridos por pessoas do mesmo sexo entrando no banheiro enquanto alguém na frente do sexo oposto está em espera.
 
-## 3. Código e Funções**
+## 3. Código e Funções
 
 O código em questão se estrutura em 2 partes: Uma interface gráfica feita em python (client\_graphic.py) e parte lógica em si feita em C (unisex.c). Estão conectadas por um websocket, de modo que unisex.c envia logs para client\_graphic.py.
 
@@ -112,7 +112,7 @@ Por fim, como centro da execução faz-se esse “try catch” com “while” c
 
 Podemos dividir a lógica de funcionamento do banheiro unissex em duas partes. Primeiro, o processo da pessoa entrando na fila, até ser a primeira da mesma. Depois, o processo de conseguir esperar por uma cabine vaga, até sair do banheiro.
 
-## 3.2.1.Fila do banheiro:
+## 3.2.1. Fila do banheiro:
 
 Como visto na função main, cada pessoa é representada por uma thread, essas threads querem usar um recurso compartilhado, as três cabines do banheiro. Homens são m\_thread e mulheres são f\_thread.
 
